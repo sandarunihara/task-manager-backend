@@ -6,34 +6,45 @@ dotenv.config();
 
 const User = require('../models/User');
 
-const seedAdmin = async () => {
+const seedUsers = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected for seeding...');
 
-    // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: 'admin@gmail.com' });
+    const usersToSeed = [
+      {
+        name: 'Admin',
+        email: 'admin@gmail.com',
+        password: 'Admin@123',
+        role: 'admin',
+      },
+      {
+        name: 'User One',
+        email: 'user1@gmail.com',
+        password: 'User1@123',
+        role: 'user',
+      },
+      {
+        name: 'User Two',
+        email: 'user2@gmail.com',
+        password: 'User2@123',
+        role: 'user',
+      }
+    ];
 
-    if (existingAdmin) {
-      console.log('Admin user already exists:');
-      console.log(`  Email: ${existingAdmin.email}`);
-      console.log(`  Role: ${existingAdmin.role}`);
-      process.exit(0);
+    for (const userData of usersToSeed) {
+      const existingUser = await User.findOne({ email: userData.email });
+
+      if (existingUser) {
+        console.log(`User already exists: ${existingUser.email} (${existingUser.role})`);
+      } else {
+        const newUser = await User.create(userData);
+        console.log(`User seeded successfully:`);
+        console.log(`  Name: ${newUser.name}`);
+        console.log(`  Email: ${newUser.email}`);
+        console.log(`  Role: ${newUser.role}`);
+      }
     }
-
-    // Create admin user
-    const admin = await User.create({
-      name: 'Admin',
-      email: 'admin@gmail.com',
-      password: 'Admin@123',
-      role: 'admin',
-    });
-
-    console.log('Admin user seeded successfully:');
-    console.log(`  Name: ${admin.name}`);
-    console.log(`  Email: ${admin.email}`);
-    console.log(`  Role: ${admin.role}`);
-    console.log(`  Password: Admin@123`);
 
     process.exit(0);
   } catch (error) {
@@ -42,4 +53,4 @@ const seedAdmin = async () => {
   }
 };
 
-seedAdmin();
+seedUsers();
