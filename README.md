@@ -73,7 +73,3 @@ npm run dev
 npm start
 ```
 
-## 📸 Application Screenshots
-
-*(Screenshots of the API testing/Postman or Backend architecture can be placed here)*
-- ![Backend Architecture Placeholder](#)
