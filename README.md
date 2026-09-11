@@ -1,67 +1,79 @@
-# LessTaxi - Backend
+# LessTaxi - Backend (Task Management API)
 
-This is the backend service for the LessTaxi application, providing a RESTful API to manage the platform's data and user authentication.
+This is the backend service for the LessTaxi Trello-like task management application. It provides a RESTful API to manage the platform's data, user authentication, and role-based permissions.
 
-## Technology Stack
+## 🚀 Deployment Information
 
-The backend is built with modern, scalable, and robust technologies:
+- **Frontend Application:** [https://task-manager-frontend-eight-plum.vercel.app/](https://task-manager-frontend-eight-plum.vercel.app/)
+- **Backend API Base URL:** [https://task-manager-backend-btlc.vercel.app/api](https://task-manager-backend-btlc.vercel.app/api)
+
+## 📋 Project Overview
+
+This assignment is a full-stack Trello-like task management application. It features a task board with three status columns (To Do, Doing, Done) and drag-and-drop functionality for moving tasks. 
+
+**Core Features Implemented:**
+- **User Roles & Permissions**: Two distinct roles:
+  - **Normal Users**: Register, log in, create tasks, assign unassigned tasks to themselves, and manage their own tasks.
+  - **Administrators**: Seeded via database scripts. Can view all users and tasks, manage assignments across the entire system, and reassign tasks between any users.
+- **Task Management**: Tasks include title, description, status, creator, assigned user, and timestamps.
+- **Drag-and-Drop Board**: Seamless task movement between columns persisting across reloads.
+- **Security**: Robust role-based access control, securely hashed passwords (bcrypt), and stateless JWT authentication.
+
+## 💻 Technology Stack
 
 - **Runtime**: [Node.js](https://nodejs.org/)
-- **Framework**: [Express.js](https://expressjs.com/) (v5) - For handling routing, middleware, and HTTP requests.
-- **Database**: [MongoDB](https://www.mongodb.com/) via [Mongoose](https://mongoosejs.com/) - NoSQL database for flexible data modeling and object data modeling (ODM) library.
-- **Authentication**: [JSON Web Tokens (JWT)](https://jwt.io/) (`jsonwebtoken`) for secure, stateless user authentication.
-- **Security & Password Hashing**: `bcryptjs` for securely hashing user passwords before storing them in the database.
-- **Environment Management**: `dotenv` for managing environment variables.
-- **Cross-Origin Resource Sharing**: `cors` to allow cross-origin requests from the frontend application.
-- **Development Tools**: `nodemon` for automatically restarting the server during development upon file changes.
+- **Framework**: [Express.js](https://expressjs.com/) (v5) - For handling routing and RESTful APIs.
+- **Database**: [MongoDB](https://www.mongodb.com/) via [Mongoose](https://mongoosejs.com/)
+- **Authentication**: [JSON Web Tokens (JWT)](https://jwt.io/) (`jsonwebtoken`)
+- **Security & Password Hashing**: `bcryptjs`
+- **Environment Management**: `dotenv`
+- **CORS**: `cors` module for frontend communication.
 
-## Prerequisites
+## ⚙️ Setup Instructions
 
-Before running the backend, ensure you have the following installed:
-- [Node.js](https://nodejs.org/) (v18 or newer recommended)
-- [MongoDB](https://www.mongodb.com/) (running locally or via MongoDB Atlas)
+### 1. Prerequisites
+- Node.js (v18 or newer)
+- MongoDB (local or Atlas cluster)
 
-## Getting Started
-
-### 1. Install Dependencies
-
-Navigate to the `backend` directory and install the required npm packages:
-
+### 2. Installation
+Navigate to the `backend` directory and install dependencies:
 ```bash
 cd backend
 npm install
 ```
 
-### 2. Environment Variables
-
-Create a `.env` file in the root of the `backend` directory based on your environment configuration. It should contain at least:
+### 3. Environment Variables
+Create a `.env` file in the root of the `backend` directory. Required variables:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/lesstaxi
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_jwt_key
 ```
+*(Note: Do not commit the `.env` file to version control.)*
 
-### 3. Database Seeding (Optional)
-
-If you need to seed the database with initial data (e.g., an admin user), you can run the provided seeder script:
-
+### 4. Database Seeding (Crucial for Admin Access)
+Administrators cannot be created through normal registration. You must seed the database to create the admin account:
 ```bash
 npm run seed
 ```
+This will create:
+- **Admin Email:** `admin@gmail.com`
+- **Admin Password:** `Admin@123`
+- (And additional normal users for testing)
 
-### 4. Running the Server
-
+### 5. Running the Server
 **Development Mode:**
-To run the server with automatic reloads upon code changes:
 ```bash
 npm run dev
 ```
 
 **Production Mode:**
-To start the server normally:
 ```bash
 npm start
 ```
 
-The backend server should now be running (by default on `http://localhost:5000`).
+## 📸 Application Screenshots
+
+*(Screenshots of the API testing/Postman or Backend architecture can be placed here)*
+- ![Backend Architecture Placeholder](#)
